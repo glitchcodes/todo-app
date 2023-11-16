@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.todoappcompose.util.UIEvent
-import kotlinx.coroutines.flow.collect
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -61,7 +60,9 @@ fun AddEditScreen(
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 viewModel.onEvent(AddEditTodoEvent.OnSaveTodoClick)
-            }) {
+            },
+                modifier = Modifier.padding(bottom = 64.dp)
+            ) {
                 Icon(imageVector = Icons.Default.Check, contentDescription = "Save")
             }
         },
