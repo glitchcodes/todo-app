@@ -23,6 +23,9 @@ class AddEditTodoViewModel @Inject constructor(
     var todo by mutableStateOf<Todo?>(null)
         private set
 
+    var id by mutableStateOf("")
+        private set
+
     var title by mutableStateOf("")
         private set
 
@@ -37,6 +40,8 @@ class AddEditTodoViewModel @Inject constructor(
 
         if (todoId != null) {
             viewModelScope.launch {
+                id = todoId
+
                 repository.getTodoById(todoId)?.let { todo ->
                     title = todo.title
                     description = todo.description ?: ""
@@ -66,10 +71,10 @@ class AddEditTodoViewModel @Inject constructor(
 
                     repository.insertTodo(
                         Todo(
-                            id = getRandomString(10),
+                            id = id.ifBlank { getRandomString(10) },
                             title = title,
                             description = description,
-                            isDone = todo?.isDone ?: false
+                            done = todo?.done ?: false
                         )
                     )
 

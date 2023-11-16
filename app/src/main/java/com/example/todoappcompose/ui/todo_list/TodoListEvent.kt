@@ -9,6 +9,6 @@ sealed class TodoListEvent {
     data class OnDeleteTodoClick(val todo: Todo) : TodoListEvent()
     data object OnUndoDeleteClick : TodoListEvent()
 
-    data class OnDoneChange(val todo: Todo, val isDone: Boolean) : TodoListEvent()
+    data class OnDoneChange(val todo: Todo, val done: Boolean) : TodoListEvent()
 
 }

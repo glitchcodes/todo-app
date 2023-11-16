@@ -61,7 +61,7 @@ class TodoListViewModel @Inject constructor(
                 viewModelScope.launch {
                     repository.insertTodo(
                         event.todo.copy(
-                            isDone = event.isDone
+                            done = event.done
                         )
                     )
                 }

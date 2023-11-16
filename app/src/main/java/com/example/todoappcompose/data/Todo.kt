@@ -4,7 +4,7 @@ data class Todo(
     val id: String = "",
     val title: String = "",
     val description: String? = "",
-    val isDone: Boolean = false
+    val done: Boolean = false
 )
 
 
