@@ -89,3 +89,5 @@ dependencies {
     // Kotlin extensions and Coroutine support for Room
     implementation("androidx.room:room-ktx:2.6.0")
 }
+
+apply(plugin = "com.google.gms.google-services")

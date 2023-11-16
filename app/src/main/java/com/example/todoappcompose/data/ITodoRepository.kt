@@ -3,7 +3,7 @@ package com.example.todoappcompose.data
 import kotlinx.coroutines.flow.Flow
 
 interface ITodoRepository {
-    suspend fun getTodoById(id: Int): Todo?
+    suspend fun getTodoById(id: String): Todo?
 
     suspend fun insertTodo(todo: Todo)
 

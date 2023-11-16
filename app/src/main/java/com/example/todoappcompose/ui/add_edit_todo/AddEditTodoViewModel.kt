@@ -33,9 +33,9 @@ class AddEditTodoViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
-        val todoId = savedStateHandle.get<Int>("todoId")!!
+        val todoId = savedStateHandle.get<String>("todoId")
 
-        if (todoId != -1) {
+        if (todoId != null) {
             viewModelScope.launch {
                 repository.getTodoById(todoId)?.let { todo ->
                     title = todo.title
@@ -66,7 +66,7 @@ class AddEditTodoViewModel @Inject constructor(
 
                     repository.insertTodo(
                         Todo(
-                            id = todo?.id,
+                            id = getRandomString(10),
                             title = title,
                             description = description,
                             isDone = todo?.isDone ?: false
@@ -83,5 +83,12 @@ class AddEditTodoViewModel @Inject constructor(
         viewModelScope.launch {
             _uiEvent.send(event)
         }
+    }
+
+    private fun getRandomString(length: Int) : String {
+        val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
     }
 }
