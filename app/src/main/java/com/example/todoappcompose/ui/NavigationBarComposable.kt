@@ -5,75 +5,68 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.todoappcompose.ui.theme.Brown
+import com.example.todoappcompose.ui.theme.Purple100
 import com.example.todoappcompose.util.Routes
 
 @Composable
 fun NavigationBarComposable(
-    navController: NavHostController
+    navController: NavHostController,
+    currentRoute: String
 ) {
-    var currentScreen by remember { mutableStateOf(Routes.TODO_LIST) }
 
     NavigationBar(
-//        containerColor = MaterialTheme.colorScheme.primaryContainer
+        containerColor = Purple100,
     ) {
         NavigationBarItem(
-            icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-            label = { Text(text = "Home") },
-            selected = currentScreen == Routes.TODO_LIST,
+            icon = { Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.White) },
+            label = { Text(text = "Home", color = Color.White) },
+            selected = currentRoute == Routes.TODO_LIST,
             onClick = {
-                currentScreen = Routes.TODO_LIST
                 navController.navigate(Routes.TODO_LIST)
-            }
+            },
+            colors = NavigationBarItemDefaults.colors(
+                indicatorColor = Brown
+            )
         )
         NavigationBarItem(
-            icon = { Icon(Icons.Default.Add, contentDescription = "New Todo") },
-            label = { Text(text = "New Todo") },
-            selected = currentScreen == Routes.ADD_EDIT_TODO,
+            icon = { Icon(Icons.Default.Add, contentDescription = "New", tint = Color.White) },
+            label = { Text(text = "New", color = Color.White) },
+            selected = currentRoute.contains(Routes.ADD_EDIT_TODO),
             onClick = {
-                currentScreen = Routes.ADD_EDIT_TODO
                 navController.navigate(Routes.ADD_EDIT_TODO)
-            }
+            },
+            colors = NavigationBarItemDefaults.colors(
+                indicatorColor = Brown
+            )
         )
         NavigationBarItem(
-            icon = { Icon(Icons.Default.Info, contentDescription = "About") },
-            label = { Text(text = "About") },
-            selected = currentScreen == Routes.ABOUT_ME,
+            icon = { Icon(Icons.Default.Info, contentDescription = "About", tint = Color.White) },
+            label = { Text(text = "About", color = Color.White) },
+            selected = currentRoute == Routes.ABOUT_ME,
             onClick = {
-                currentScreen = Routes.ABOUT_ME
                 navController.navigate(Routes.ABOUT_ME)
-            }
+            },
+            colors = NavigationBarItemDefaults.colors(
+                indicatorColor = Brown
+            )
         )
     }
 }
-
-//@Composable
-//fun NavigationBarItem(
-//    navController: NavHostController,
-//    route: String,
-//    icon: ImageVector,
-//    label: String
-//) {
-//    IconButton(onClick = { navController.navigate(route) }) {
-//        Icon(imageVector = icon, contentDescription = label)
-//    }
-//}
 
 @Preview(
     showBackground = false
 )
 @Composable
 fun BottomAppBarPreview() {
-    NavigationBarComposable(rememberNavController())
+    NavigationBarComposable(rememberNavController(), Routes.TODO_LIST)
 }

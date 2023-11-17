@@ -88,4 +88,8 @@ dependencies {
 
     // Kotlin extensions and Coroutine support for Room
     implementation("androidx.room:room-ktx:2.6.0")
+
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.33.2-alpha")
 }
+
+apply(plugin = "com.google.gms.google-services")
