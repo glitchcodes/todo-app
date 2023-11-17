@@ -1,11 +1,15 @@
 package com.example.todoappcompose.ui.add_edit_todo
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.todoappcompose.data.INotificationRepository
 import com.example.todoappcompose.data.ITodoRepository
 import com.example.todoappcompose.data.Todo
 import com.example.todoappcompose.util.UIEvent
@@ -13,11 +17,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.time.Instant
 import javax.inject.Inject
 
+@RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class AddEditTodoViewModel @Inject constructor(
-    private val repository: ITodoRepository,
+    private val todoRepository: ITodoRepository,
+    private val notificationRepository: INotificationRepository,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
     var todo by mutableStateOf<Todo?>(null)
@@ -32,6 +39,9 @@ class AddEditTodoViewModel @Inject constructor(
     var description by mutableStateOf("")
         private set
 
+    var selectedDate by mutableLongStateOf(Instant.now().toEpochMilli())
+        private set
+
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
@@ -42,7 +52,7 @@ class AddEditTodoViewModel @Inject constructor(
             viewModelScope.launch {
                 id = todoId
 
-                repository.getTodoById(todoId)?.let { todo ->
+                todoRepository.getTodoById(todoId)?.let { todo ->
                     title = todo.title
                     description = todo.description ?: ""
 
@@ -60,6 +70,9 @@ class AddEditTodoViewModel @Inject constructor(
             is AddEditTodoEvent.OnDescriptionChange -> {
                 description = event.description
             }
+            is AddEditTodoEvent.OnDateChanged -> {
+                selectedDate = event.selectedDate
+            }
             is AddEditTodoEvent.OnSaveTodoClick -> {
                 viewModelScope.launch {
                     if (title.isBlank()) {
@@ -69,14 +82,18 @@ class AddEditTodoViewModel @Inject constructor(
                         return@launch
                     }
 
-                    repository.insertTodo(
+                    todoRepository.insertTodo(
                         Todo(
                             id = id.ifBlank { getRandomString(10) },
                             title = title,
                             description = description,
-                            done = todo?.done ?: false
+                            done = todo?.done ?: false,
+                            deadline = selectedDate
                         )
                     )
+
+                    // Schedule a notification
+                    notificationRepository.scheduleNotification(selectedDate, title)
 
                     sendUIEvent(UIEvent.PopBackStack)
                 }

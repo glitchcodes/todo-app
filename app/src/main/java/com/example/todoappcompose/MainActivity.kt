@@ -1,9 +1,11 @@
 package com.example.todoappcompose
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -26,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +64,11 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ) {
-                            AddEditScreen(onPopBackStack = {
-                                navController.popBackStack()
-                            })
+                            AddEditScreen(
+                                onPopBackStack = {
+                                    navController.popBackStack()
+                                }
+                            )
                         }
                         composable(Routes.ABOUT_ME) {
                             AboutScreen()

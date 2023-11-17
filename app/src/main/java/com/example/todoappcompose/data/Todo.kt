@@ -4,7 +4,8 @@ data class Todo(
     val id: String = "",
     val title: String = "",
     val description: String? = "",
-    val done: Boolean = false
+    val done: Boolean = false,
+    val deadline: Long = 0
 )
 
 
