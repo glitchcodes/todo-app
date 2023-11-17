@@ -15,8 +15,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.todoappcompose.ui.NavigationBarComposable
+import com.example.todoappcompose.ui.SetStatusBarColor
 import com.example.todoappcompose.ui.about_me.AboutScreen
 import com.example.todoappcompose.ui.add_edit_todo.AddEditScreen
+import com.example.todoappcompose.ui.theme.MainBG
 import com.example.todoappcompose.ui.theme.TodoAppComposeTheme
 import com.example.todoappcompose.ui.todo_list.TodoListScreen
 import com.example.todoappcompose.util.Routes
@@ -29,7 +31,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            TodoAppComposeTheme {
+            TodoAppComposeTheme (darkTheme = false) {
+                SetStatusBarColor(color = MainBG)
+
                 val navController = rememberNavController()
                 val currentBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute by remember { derivedStateOf { currentBackStackEntry?.destination?.route ?: Routes.TODO_LIST } }
