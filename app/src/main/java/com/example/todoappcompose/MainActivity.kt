@@ -1,6 +1,8 @@
 package com.example.todoappcompose
 
+import android.Manifest.permission.POST_NOTIFICATIONS
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,6 +12,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,6 +24,7 @@ import com.example.todoappcompose.ui.NavigationBarComposable
 import com.example.todoappcompose.ui.SetStatusBarColor
 import com.example.todoappcompose.ui.about_me.AboutScreen
 import com.example.todoappcompose.ui.add_edit_todo.AddEditScreen
+import com.example.todoappcompose.ui.onboarding.OnboardingScreen
 import com.example.todoappcompose.ui.theme.MainBG
 import com.example.todoappcompose.ui.theme.TodoAppComposeTheme
 import com.example.todoappcompose.ui.todo_list.TodoListScreen
@@ -33,6 +38,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, arrayOf(POST_NOTIFICATIONS), 1)
+        }
+
         setContent {
             TodoAppComposeTheme (darkTheme = false) {
                 SetStatusBarColor(color = MainBG)
@@ -42,12 +51,21 @@ class MainActivity : ComponentActivity() {
                 val currentRoute by remember { derivedStateOf { currentBackStackEntry?.destination?.route ?: Routes.TODO_LIST } }
 
                 Scaffold(
-                    bottomBar = { NavigationBarComposable(navController = navController, currentRoute = currentRoute) }
+                    bottomBar = {
+                        if (currentRoute != Routes.ONBOARDING) {
+                            NavigationBarComposable(navController = navController, currentRoute = currentRoute)
+                        }
+                    }
                 ) {
                     NavHost(
                         navController = navController,
-                        startDestination = Routes.TODO_LIST
+                        startDestination = Routes.ONBOARDING
                     ) {
+                        composable(Routes.ONBOARDING) {
+                            OnboardingScreen(
+                                navController = navController
+                            )
+                        }
                         composable(Routes.TODO_LIST) {
                             TodoListScreen(
                                 onNavigate = {

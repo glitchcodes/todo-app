@@ -17,6 +17,10 @@ val BebasNeue = FontFamily(
     Font(R.font.bebasneue_regular, FontWeight.Normal, FontStyle.Normal)
 )
 
+val PetitCochon = FontFamily(
+    Font(R.font.petitcochon_regular, FontWeight.Normal, FontStyle.Normal)
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(
