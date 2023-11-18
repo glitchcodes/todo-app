@@ -1,6 +1,5 @@
 package com.example.todoappcompose.data
 
-import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -45,10 +44,6 @@ class TodoRepository @Inject constructor(db: FirebaseDatabase): ITodoRepository 
             override fun onDataChange(snapshot: DataSnapshot) {
                 val todos = snapshot.children.mapNotNull {
                     it.getValue(Todo::class.java)
-                }
-
-                snapshot.children.mapNotNull {
-                    Log.i("test", it.value.toString())
                 }
 
                 trySend(todos).isSuccess
