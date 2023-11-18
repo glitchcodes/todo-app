@@ -82,18 +82,19 @@ class AddEditTodoViewModel @Inject constructor(
                         return@launch
                     }
 
+                    // Schedule a notification
+                    val notificationId = notificationRepository.scheduleNotification(selectedDate, title)
+
                     todoRepository.insertTodo(
                         Todo(
                             id = id.ifBlank { getRandomString(10) },
                             title = title,
                             description = description,
                             done = todo?.done ?: false,
-                            deadline = selectedDate
+                            deadline = selectedDate,
+                            notificationId = notificationId
                         )
                     )
-
-                    // Schedule a notification
-                    notificationRepository.scheduleNotification(selectedDate, title)
 
                     sendUIEvent(UIEvent.PopBackStack)
                 }
