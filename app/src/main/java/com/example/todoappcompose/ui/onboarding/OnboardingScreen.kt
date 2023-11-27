@@ -61,19 +61,24 @@ fun OnboardingScreen(
 
                 Spacer(modifier = Modifier.height(64.dp))
                 
-                Box(
+                Column(
                     modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Button(
                         onClick = {
                             navController.navigate(Routes.TODO_LIST)
-
-                            // Do not show onboarding ever again
-
                         }
                     ) {
-                        Text(text = "Start creating ToDos")
+                        Text(text = "MY TODO LIST")
+                    }
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Button(
+                        onClick = {
+                            navController.navigate(Routes.ADD_EDIT_TODO)
+                        }
+                    ) {
+                        Text(text = "CREATE A TODO")
                     }
                 }
             }

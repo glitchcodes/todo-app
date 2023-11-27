@@ -9,16 +9,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.todoappcompose.R
 
-val GrandHotel = FontFamily(
-    Font(R.font.grandhotel_regular, FontWeight.Normal, FontStyle.Normal)
-)
-
 val BebasNeue = FontFamily(
     Font(R.font.bebasneue_regular, FontWeight.Normal, FontStyle.Normal)
 )
 
 val PetitCochon = FontFamily(
     Font(R.font.petitcochon_regular, FontWeight.Normal, FontStyle.Normal)
+)
+
+val IntroHead = FontFamily(
+    Font(R.font.introhead_baseshade, FontWeight.Normal, FontStyle.Normal)
 )
 
 // Set of Material typography styles to start with

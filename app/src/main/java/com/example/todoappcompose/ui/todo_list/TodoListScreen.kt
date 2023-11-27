@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.todoappcompose.ui.theme.Blue50
-import com.example.todoappcompose.ui.theme.GrandHotel
+import com.example.todoappcompose.ui.theme.IntroHead
 import com.example.todoappcompose.ui.theme.MainBG
 import com.example.todoappcompose.util.UIEvent
 
@@ -80,8 +80,8 @@ fun TodoListScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "My To-Do List",
-                                fontFamily = GrandHotel,
+                                text = "MY TO-DO LIST",
+                                fontFamily = IntroHead,
                                 fontSize = 64.sp,
                                 fontWeight = FontWeight.Normal,
                                 fontStyle = FontStyle.Normal,
@@ -90,7 +90,7 @@ fun TodoListScreen(
                             )
                         }
 
-                        Spacer(modifier = Modifier.height(120.dp))
+                        Spacer(modifier = Modifier.height(64.dp))
 
                         if (todos.value.isEmpty()) {
                             Box(
@@ -101,7 +101,7 @@ fun TodoListScreen(
                             }
                         } else {
                             LazyColumn(
-                                modifier = Modifier.fillMaxSize()
+                                modifier = Modifier.fillMaxSize().padding(bottom = 64.dp)
                             ) {
                                 items(todos.value) { todo ->
                                     TodoItem(

@@ -47,7 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.todoappcompose.ui.TimePickerDialog
 import com.example.todoappcompose.ui.theme.Blue50
-import com.example.todoappcompose.ui.theme.GrandHotel
+import com.example.todoappcompose.ui.theme.IntroHead
 import com.example.todoappcompose.ui.theme.MainBG
 import com.example.todoappcompose.ui.theme.Purple100
 import com.example.todoappcompose.util.UIEvent
@@ -129,18 +129,18 @@ fun AddEditScreen(
                         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                             Text(
                                 text = when {
-                                    viewModel.id.isBlank() -> "Create a Todo"
-                                    else -> "Edit Todo"
+                                    viewModel.id.isBlank() -> "CREATE A TODO"
+                                    else -> "EDIT TODO"
                                 },
-                                fontFamily = GrandHotel,
+                                fontFamily = IntroHead,
                                 fontSize = 64.sp,
-                                fontWeight = FontWeight.Bold,
+                                fontWeight = FontWeight.Normal,
                                 textAlign = TextAlign.Center,
                                 color = Blue50
                             )
                         }
 
-                        Spacer(modifier = Modifier.height(120.dp))
+                        Spacer(modifier = Modifier.height(64.dp))
 
                         Column(
                             modifier = Modifier.fillMaxSize()

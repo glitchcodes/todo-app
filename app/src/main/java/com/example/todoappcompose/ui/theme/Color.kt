@@ -15,5 +15,6 @@ val Blue50 = Color(0xFF3D30A2)
 val LightBlueGray = Color(0xFFB6CCD7)
 
 val Brown = Color(0xFF494547)
+val Orange = Color(0xFFDFA957)
 
 val MainBG = Color(0xFFFFFB73)
