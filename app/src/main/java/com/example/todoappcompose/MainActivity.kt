@@ -83,8 +83,8 @@ class MainActivity : ComponentActivity() {
                             )
                         ) {
                             AddEditScreen(
-                                onPopBackStack = {
-                                    navController.popBackStack()
+                                onNavigate = {
+                                    navController.navigate(it.route)
                                 }
                             )
                         }

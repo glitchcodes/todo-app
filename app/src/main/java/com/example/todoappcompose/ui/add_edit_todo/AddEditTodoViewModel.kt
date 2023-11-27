@@ -13,6 +13,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.todoappcompose.data.INotificationRepository
 import com.example.todoappcompose.data.ITodoRepository
 import com.example.todoappcompose.data.Todo
+import com.example.todoappcompose.util.Routes
 import com.example.todoappcompose.util.UIEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -115,7 +116,7 @@ class AddEditTodoViewModel @Inject constructor(
                         )
                     )
 
-                    sendUIEvent(UIEvent.PopBackStack)
+                    sendUIEvent(UIEvent.Navigate(Routes.TODO_LIST))
                 }
             }
         }

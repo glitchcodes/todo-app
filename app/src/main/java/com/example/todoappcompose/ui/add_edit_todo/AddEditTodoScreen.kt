@@ -61,7 +61,7 @@ import java.util.Locale
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AddEditScreen(
-    onPopBackStack: () -> Unit,
+    onNavigate: (UIEvent.Navigate) -> Unit,
     viewModel: AddEditTodoViewModel = hiltViewModel()
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -89,7 +89,7 @@ fun AddEditScreen(
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UIEvent.PopBackStack -> onPopBackStack()
+                is UIEvent.Navigate -> onNavigate(event)
                 is UIEvent.ShowSnackbar -> {
                     snackbarHostState.showSnackbar(
                         message = event.message,
