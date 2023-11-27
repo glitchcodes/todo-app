@@ -67,12 +67,13 @@ fun AboutScreen() {
                 Box(
                     modifier = Modifier.fillMaxWidth()
                         .background(Orange, shape = RoundedCornerShape(15.dp))
-                        .padding(24.dp)
+                        .padding(16.dp)
                 ) {
                     Text(
                         text = "ToDue App is a sleek and user-friendly task management solution that simplifies the process of organizing daily activities. With its intuitive interface, users can swiftly create, read, edit, and delete tasks, ensuring a streamlined workflow. We provide a seamless and effective platform for individuals seeking a straightforward and powerful tool for their to-do lists.",
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
