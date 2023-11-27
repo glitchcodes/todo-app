@@ -82,7 +82,7 @@ fun TodoListScreen(
                             Text(
                                 text = "MY TO-DO LIST",
                                 fontFamily = IntroHead,
-                                fontSize = 64.sp,
+                                fontSize = 50.sp,
                                 fontWeight = FontWeight.Normal,
                                 fontStyle = FontStyle.Normal,
                                 textAlign = TextAlign.Center,

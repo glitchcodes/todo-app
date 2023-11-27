@@ -124,7 +124,7 @@ fun AddEditScreen(
                 ) {
                     Column {
 
-                        Spacer(modifier = Modifier.height(64.dp))
+                        Spacer(modifier = Modifier.height(32.dp))
 
                         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                             Text(
@@ -133,14 +133,14 @@ fun AddEditScreen(
                                     else -> "EDIT TODO"
                                 },
                                 fontFamily = IntroHead,
-                                fontSize = 64.sp,
+                                fontSize = 50.sp,
                                 fontWeight = FontWeight.Normal,
                                 textAlign = TextAlign.Center,
                                 color = Blue50
                             )
                         }
 
-                        Spacer(modifier = Modifier.height(64.dp))
+                        Spacer(modifier = Modifier.height(32.dp))
 
                         Column(
                             modifier = Modifier.fillMaxSize()

@@ -21,6 +21,10 @@ val IntroHead = FontFamily(
     Font(R.font.introhead_baseshade, FontWeight.Normal, FontStyle.Normal)
 )
 
+val Cubao = FontFamily(
+    Font(R.font.cubao, FontWeight.Normal, FontStyle.Normal)
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(

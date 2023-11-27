@@ -42,14 +42,14 @@ fun AboutScreen() {
                     Text(
                         text = "ABOUT US",
                         fontFamily = IntroHead,
-                        fontSize = 64.sp,
+                        fontSize = 50.sp,
                         fontWeight = FontWeight.Normal,
                         textAlign = TextAlign.Center,
                         color = Blue50
                     )
                 }
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
                 Box(
                     modifier = Modifier.fillMaxWidth()
@@ -62,7 +62,7 @@ fun AboutScreen() {
                     )
                 }
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
                 Box(
                     modifier = Modifier.fillMaxWidth()
