@@ -30,8 +30,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTodoRepository(): ITodoRepository {
-        return TodoRepository(database)
+    fun provideTodoRepository(
+        @ApplicationContext context: Context
+    ): ITodoRepository {
+        return TodoRepository(context, database)
     }
 
     @Provides

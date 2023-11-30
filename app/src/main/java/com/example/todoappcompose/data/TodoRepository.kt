@@ -1,5 +1,6 @@
 package com.example.todoappcompose.data
 
+import android.content.Context
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -12,13 +13,19 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class TodoRepository @Inject constructor(db: FirebaseDatabase): ITodoRepository {
+class TodoRepository @Inject constructor(
+    context: Context,
+    db: FirebaseDatabase
+): ITodoRepository {
+
+    private val sharedPreferences = context.getSharedPreferences("DEVICE_SETTINGS", Context.MODE_PRIVATE)
+    private val deviceId = sharedPreferences.getString("device_id", "")
 
     private val databaseReference = db.getReference("TodoDatabase").child("todos")
 
     override suspend fun getTodoById(id: String): Todo? {
         return suspendCoroutine { continuation ->
-            databaseReference.child(id).addListenerForSingleValueEvent(object : ValueEventListener {
+            databaseReference.child(deviceId!!).child(id).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val todo = snapshot.getValue(Todo::class.java)
                     continuation.resume(todo)
@@ -32,17 +39,17 @@ class TodoRepository @Inject constructor(db: FirebaseDatabase): ITodoRepository 
     }
 
     override suspend fun insertTodo(todo: Todo) {
-        databaseReference.child(todo.id).setValue(todo)
+        databaseReference.child(deviceId!!).child(todo.id).setValue(todo)
     }
 
     override suspend fun deleteTodo(todo: Todo) {
-        databaseReference.child(todo.id).removeValue()
+        databaseReference.child(deviceId!!).child(todo.id).removeValue()
     }
 
     override fun getTodos(): Flow<List<Todo>> = callbackFlow {
         val eventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val todos = snapshot.children.mapNotNull {
+                val todos = snapshot.child(deviceId!!).children.mapNotNull {
                     it.getValue(Todo::class.java)
                 }
 

@@ -38,6 +38,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Preferences
+        val sharedPreferences = getSharedPreferences("DEVICE_SETTINGS", MODE_PRIVATE)
+        val deviceId = sharedPreferences.getString("device_id", "")
+
+        if (deviceId.isNullOrBlank()) {
+            val editor = sharedPreferences.edit()
+            editor.putString("device_id", getRandomString())
+            editor.apply()
+        }
+
         if (ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, arrayOf(POST_NOTIFICATIONS), 1)
         }
@@ -95,6 +105,13 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun getRandomString() : String {
+        val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+        return (1..16)
+            .map { allowedChars.random() }
+            .joinToString("")
     }
 }
 
